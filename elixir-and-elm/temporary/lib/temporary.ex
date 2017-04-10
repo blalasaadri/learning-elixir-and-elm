@@ -12,7 +12,5 @@ defmodule Temporary do
       2
 
   """
-  def add(x, y) do
-    x + y
-  end
+  def add(x, y), do: x + y
 end
