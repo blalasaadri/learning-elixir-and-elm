@@ -1,0 +1,137 @@
+var _user$project$Main$view = function (model) {
+	return A2(
+		_rundis$elm_bootstrap$Bootstrap_Grid$container,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _rundis$elm_bootstrap$Bootstrap_CDN$stylesheet,
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_rundis$elm_bootstrap$Bootstrap_Grid$row,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A2(
+							_rundis$elm_bootstrap$Bootstrap_Grid$col,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Some content for my view here...'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Name':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{tmp_name: _p0._0});
+			case 'Password':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{tmp_password: _p0._0});
+			case 'PasswordAgain':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{tmp_passwordAgain: _p0._0});
+			case 'Age':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{tmp_age: _p0._0});
+			default:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{initial: false, name: model.tmp_name, password: model.tmp_password, passwordAgain: model.tmp_passwordAgain, age: model.tmp_age});
+		}
+	});
+var _user$project$Main$Model = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {initial: a, tmp_name: b, tmp_password: c, tmp_passwordAgain: d, tmp_age: e, name: f, password: g, passwordAgain: h, age: i};
+	});
+var _user$project$Main$model = A9(_user$project$Main$Model, true, '', '', '', '', '', '', '', '');
+var _user$project$Main$main = _elm_lang$html$Html$beginnerProgram(
+	{model: _user$project$Main$model, view: _user$project$Main$view, update: _user$project$Main$update})();
+var _user$project$Main$Submit = {ctor: 'Submit'};
+var _user$project$Main$Age = function (a) {
+	return {ctor: 'Age', _0: a};
+};
+var _user$project$Main$PasswordAgain = function (a) {
+	return {ctor: 'PasswordAgain', _0: a};
+};
+var _user$project$Main$Password = function (a) {
+	return {ctor: 'Password', _0: a};
+};
+var _user$project$Main$Name = function (a) {
+	return {ctor: 'Name', _0: a};
+};
+var _user$project$Main$Empty = {ctor: 'Empty'};
+var _user$project$Main$Error = function (a) {
+	return {ctor: 'Error', _0: a};
+};
+var _user$project$Main$Valid = {ctor: 'Valid'};
+var _user$project$Main$validateInput = function (model) {
+	if (model.initial) {
+		return _user$project$Main$Empty;
+	} else {
+		if (!_elm_lang$core$Native_Utils.eq(model.password, model.passwordAgain)) {
+			return _user$project$Main$Error('Passwords do not match!');
+		} else {
+			if (_elm_lang$core$Native_Utils.cmp(
+				_elm_lang$core$String$length(model.password),
+				8) < 1) {
+				return _user$project$Main$Error('Passwords must have at least 9 characters');
+			} else {
+				var _p1 = _elm_lang$core$String$toInt(model.age);
+				if (_p1.ctor === 'Ok') {
+					return _user$project$Main$Valid;
+				} else {
+					return _user$project$Main$Error(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'\'',
+							A2(_elm_lang$core$Basics_ops['++'], model.age, '\' is not a valid age')));
+				}
+			}
+		}
+	}
+};
+var _user$project$Main$viewValidation = function (model) {
+	var _p2 = function () {
+		var _p3 = _user$project$Main$validateInput(model);
+		switch (_p3.ctor) {
+			case 'Empty':
+				return {ctor: '_Tuple2', _0: 'red', _1: ''};
+			case 'Valid':
+				return {ctor: '_Tuple2', _0: 'green', _1: 'OK'};
+			default:
+				return {ctor: '_Tuple2', _0: 'red', _1: _p3._0};
+		}
+	}();
+	var color = _p2._0;
+	var message = _p2._1;
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'color', _1: color},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(message),
+			_1: {ctor: '[]'}
+		});
+};
