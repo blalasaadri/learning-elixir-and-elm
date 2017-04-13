@@ -25,7 +25,7 @@ update msg model =
     Reset -> 0
 
 
--- VIES
+-- VIEW
 
 view : Model -> Html Msg
 view model =
